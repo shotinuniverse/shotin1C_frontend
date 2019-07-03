@@ -20,19 +20,15 @@ class LoginForm extends Component {
   }
 
   getPassword() {
-    fetch("http://localhost:8080/api/users")
+    fetch("http://localhost:8080/api/users", { method: 'GET' })
       .then((response) => {
-        response.json();
-      })
-      .then((jsonData) => {
-        // jsonData is parsed json object received from url
-        console.log(jsonData)
-        this.setState({ resultArray: jsonData[0] });
+        return response.json()
       })
       .then((data) => {
         console.log("data", data);
-        //data = JSON.parse(this.data);
-        this.setState({ resultArray: data[0] });
+        this.setState({ 
+          resultArray: data 
+        });
       });
 }
 
@@ -48,7 +44,7 @@ class LoginForm extends Component {
             password:
           <input type="password" value={this.state.password} onChange={this.handleChangePassword} class="form-control" placeholder="password" />
           </label>
-          <button onClick={this.getPassword} class="btn -moz-focus-inner">log in</button>
+          <button class="btn -moz-focus-inner">sign in</button>
         </div>
         {<div>
           {this.getPassword()}
@@ -57,17 +53,27 @@ class LoginForm extends Component {
                 <tr>
                   <th>username</th>
                   <th>description</th>
+                  <th>date of changed</th>
+                  <th>roles id</th>
+                  <th>show</th>
+                  <th>eauth</th>
+                  <th>adm role</th>
                 </tr>
               </thead>
-              <tbody>
+              {<tbody>
               {
                 this.state.resultArray.map(Users =>
-                  <tr>
+                  <tr key={Users.name}>
                     <td>{Users.name}</td>
                     <td>{Users.description}</td>
+                    <td>{Users.dateofchanged}</td>
+                    <td>{Users.idrole}</td>
+                    <td>{Users.isshow}</td>
+                    <td>{Users.isauth}</td>
+                    <td>{Users.isadmin}</td>
                   </tr>
               )}
-              </tbody>
+              </tbody>}
             </table>
         </div>}
       </div>
