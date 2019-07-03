@@ -20,7 +20,7 @@ class LoginForm extends Component {
   }
 
   getPassword() {
-    fetch("http://localhost:8080/api/users", { method: 'GET' })
+    fetch("http://192.168.0.2:8080/api/users", { method: 'GET' })
       .then((response) => {
         return response.json()
       })
